@@ -1,19 +1,22 @@
 const express = require("express");
 const app = express();
 const connectDB = require('./db');
-const Hotel = require('./models/Hotel');
+const User = require('./models/User');
+require('dotenv').config();
+
+const PORT = process.env.PORT
 
 app.get("/", async (req, res) => {
-    // get all hotels
+    // get all users
     await connectDB();
-    const hotels = await Hotel.find();
-    res.json(hotels);
+    const users = await User.find();
+    res.json(users);
 });
 
 app.get('/about', (req, res) => {
     res.send('About route 🎉 ')
 })
 
-app.listen(3001, () => console.log("Server ready on port 3001."));
+app.listen(PORT, () => console.log(`- Local:\thttp://localhost:${PORT}`))
 
 module.exports = app;
